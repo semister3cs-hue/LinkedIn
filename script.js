@@ -3,6 +3,12 @@
  * Topic: Study of LinkedIn for Academic Communication, Professional Networking and Career Development in Chemistry
  */
 
+/* ==========================================================================
+   CONFIG: TEACHER MODE PASSWORD
+   Aap yahan apna secret password badal sakte hain:
+   ========================================================================== */
+const TEACHER_PASSWORD = 'shid';
+
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initProjectorMode();
@@ -67,22 +73,184 @@ function initProjectorMode() {
 }
 
 /* ==========================================================================
-   3. FACILITATOR GUIDANCE MODE & SESSION STOPWATCH
+   3. FACILITATOR GUIDANCE MODE & SESSION STOPWATCH (WITH PASSWORD AUTH)
    ========================================================================== */
 function initTeacherMode() {
   const teacherBtn = document.getElementById('teacher-toggle');
-  const isTeacherActive = localStorage.getItem('chem_teacher_mode') === 'true';
+  if (!teacherBtn) return;
 
+  // Initial load check
+  const isTeacherActive = localStorage.getItem('chem_teacher_mode') === 'true';
   if (isTeacherActive) {
     document.body.classList.add('teacher-active');
     teacherBtn.classList.add('btn-primary');
   }
 
   teacherBtn.addEventListener('click', () => {
-    const active = document.body.classList.toggle('teacher-active');
-    localStorage.setItem('chem_teacher_mode', active);
-    teacherBtn.classList.toggle('btn-primary', active);
-    showToast(active ? 'Facilitator Mode Enabled: Prompts & Timing Visible' : 'Facilitator Mode Disabled');
+    const isCurrentlyActive = document.body.classList.contains('teacher-active');
+
+    if (isCurrentlyActive) {
+      // If already active -> Turn OFF directly (No password needed)
+      document.body.classList.remove('teacher-active');
+      localStorage.setItem('chem_teacher_mode', 'false');
+      teacherBtn.classList.remove('btn-primary');
+      showToast('Facilitator Mode Disabled');
+    } else {
+      // If turning ON -> Require password
+      showTeacherPasswordModal(() => {
+        document.body.classList.add('teacher-active');
+        localStorage.setItem('chem_teacher_mode', 'true');
+        teacherBtn.classList.add('btn-primary');
+        showToast('Facilitator Mode Enabled: Prompts & Timing Visible');
+      });
+    }
+  });
+}
+
+// Injected dynamic modal for Teacher Mode Password
+function showTeacherPasswordModal(onSuccessCallback) {
+  // Inject CSS for modal if not present
+  if (!document.getElementById('chem-teacher-modal-style')) {
+    const style = document.createElement('style');
+    style.id = 'chem-teacher-modal-style';
+    style.textContent = `
+      .chem-auth-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 25, 47, 0.75);
+        backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        animation: chemFadeIn 0.2s ease-out;
+      }
+      .chem-auth-box {
+        background: #ffffff;
+        color: #0f172a;
+        width: 90%;
+        max-width: 400px;
+        padding: 26px;
+        border-radius: 14px;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        border: 1px solid #cbd5e1;
+        text-align: center;
+        animation: chemPopUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: inherit;
+      }
+      @keyframes chemFadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes chemPopUp { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+      .chem-auth-icon {
+        width: 52px;
+        height: 52px;
+        background: #eff6ff;
+        border-radius: 50%;
+        margin: 0 auto 14px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+      }
+      .chem-auth-box h3 { margin: 0 0 6px 0; font-size: 1.25rem; font-weight: 800; color: #002244; }
+      .chem-auth-box p { margin: 0 0 18px 0; font-size: 0.85rem; color: #475569; line-height: 1.4; }
+      .chem-auth-input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 2px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 1rem;
+        text-align: center;
+        letter-spacing: 2px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+      }
+      .chem-auth-input:focus { border-color: #0a66c2; box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.15); }
+      .chem-auth-error {
+        color: #dc2626;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-top: 8px;
+        display: none;
+      }
+      .chem-auth-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .chem-auth-btn {
+        flex: 1;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+      .chem-auth-cancel { background: #f1f5f9; color: #334155; }
+      .chem-auth-cancel:hover { background: #e2e8f0; }
+      .chem-auth-submit { background: #0a66c2; color: #ffffff; }
+      .chem-auth-submit:hover { background: #004182; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Remove existing modal if any
+  const existingModal = document.getElementById('chem-teacher-modal');
+  if (existingModal) existingModal.remove();
+
+  // Create modal container
+  const overlay = document.createElement('div');
+  overlay.id = 'chem-teacher-modal';
+  overlay.className = 'chem-auth-overlay';
+  overlay.innerHTML = `
+    <div class="chem-auth-box">
+      <div class="chem-auth-icon">🔒</div>
+      <h3>Teacher Mode Access</h3>
+      <p>Facilitator cues aur presentation prompts unlock karne ke liye password enter karein.</p>
+      <input type="password" id="chem-teacher-pass-input" class="chem-auth-input" placeholder="Password" autofocus />
+      <div id="chem-teacher-pass-err" class="chem-auth-error">Incorrect Password! Please try again.</div>
+      <div class="chem-auth-actions">
+        <button type="button" class="chem-auth-btn chem-auth-cancel" id="chem-modal-cancel">Cancel</button>
+        <button type="button" class="chem-auth-btn chem-auth-submit" id="chem-modal-submit">Unlock</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  const input = document.getElementById('chem-teacher-pass-input');
+  const errorMsg = document.getElementById('chem-teacher-pass-err');
+  const submitBtn = document.getElementById('chem-modal-submit');
+  const cancelBtn = document.getElementById('chem-modal-cancel');
+
+  setTimeout(() => input.focus(), 80);
+
+  function closeModal() {
+    overlay.remove();
+  }
+
+  function validate() {
+    if (input.value === TEACHER_PASSWORD) {
+      closeModal();
+      if (typeof onSuccessCallback === 'function') onSuccessCallback();
+    } else {
+      errorMsg.style.display = 'block';
+      input.select();
+    }
+  }
+
+  submitBtn.addEventListener('click', validate);
+  cancelBtn.addEventListener('click', closeModal);
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') validate();
+    if (e.key === 'Escape') closeModal();
+  });
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
   });
 }
 
