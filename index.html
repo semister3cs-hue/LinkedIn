@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChemConnect Workshop Portal | Study of LinkedIn for Chemistry Students</title>
+  <meta name="description" content="Official interactive workshop portal for Chemistry students: Study of LinkedIn for Academic Communication, Professional Networking, and Career Development." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- STICKY WORKSHOP NAVIGATION BAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo" title="Chemical Sciences Workshop Portal">
+        <svg class="chem-logo-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="18 2, 32 10, 32 26, 18 34, 4 26, 4 10" />
+          <circle cx="18" cy="18" r="5" fill="currentColor" fill-opacity="0.15" />
+          <line x1="18" y1="2" x2="18" y2="13" />
+          <line x1="32" y1="26" x2="22.5" y2="20.5" />
+          <line x1="4" y1="26" x2="13.5" y2="20.5" />
+        </svg>
+        <div class="brand-text">
+          <span class="brand-title">Chem<span class="highlight">Connect</span></span>
+          <span class="brand-badge">Workshop Portal</span>
+        </div>
+      </a>
+
+      <!-- Comprehensive Navigation Menu -->
+      <nav class="nav-links" id="nav-menu" aria-label="Workshop Sections">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#what-is-linkedin" class="nav-link">What is LinkedIn?</a>
+        <a href="#why-linkedin" class="nav-link">Why LinkedIn?</a>
+        <a href="#demo-profile" class="nav-link">Demo Profile</a>
+        <a href="#practical-profile" class="nav-link">Profile Activity</a>
+        <a href="#academic-communication" class="nav-link">Academic Search</a>
+        <a href="#networking" class="nav-link">Networking Activity</a>
+        <a href="#connection-request" class="nav-link">Connect Notes</a>
+        <a href="#career-paths" class="nav-link">Career Paths</a>
+        <a href="#job-practical" class="nav-link">Job Search</a>
+        <a href="#post-creator" class="nav-link">Post Creator</a>
+        <a href="#assignment" class="nav-link">Reflection Checklist</a>
+        <a href="#observation-table-sec" class="nav-link">Activity Table</a>
+        <a href="#viva" class="nav-link">Workshop Q&amp;A</a>
+        <a href="#result" class="nav-link">Workshop Takeaway</a>
+      </nav>
+
+      <!-- Workshop Utilities & Controls -->
+      <div class="nav-actions">
+        <!-- Projector High-Contrast Mode -->
+        <button id="projector-toggle" class="btn btn-utility" title="Optimize contrast and fonts for classroom projector" aria-label="Toggle Projector Mode">
+          📽️ <span class="btn-text-desktop">Projector</span>
+        </button>
+
+        <!-- Teacher / Facilitator Guidance Mode -->
+        <button id="teacher-toggle" class="btn btn-teacher" title="Toggle facilitator scripts, timings and teaching tips" aria-label="Toggle Facilitator Mode">
+          👨‍🏫 <span class="btn-text-desktop">Teacher Mode</span>
+        </button>
+
+        <!-- Dark/Light Mode -->
+        <button id="theme-toggle" class="icon-btn" title="Toggle Dark/Light theme" aria-label="Toggle Theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <!-- Print Workshop Record -->
+        <button id="print-record" class="btn btn-outline" title="Print full workshop record report">
+          🖨️ <span class="btn-text-desktop">Print Record</span>
+        </button>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- FACILITATOR GLOBAL BANNER WITH SESSION TIMER -->
+  <aside id="teacher-global-banner" class="teacher-global-banner hidden" role="region" aria-label="Facilitator Dashboard">
+    <div class="container teacher-banner-content">
+      <div class="teacher-banner-left">
+        <span class="teacher-pill">👨‍🏫 FACILITATOR DASHBOARD ACTIVE</span>
+        <span class="teacher-flow-text">
+          <strong>Recommended Workshop Flow (80 Mins):</strong> 
+          1. Intro &amp; Icebreaker (5m) &rarr; 2. What is LinkedIn? (7m) &rarr; 3. Why LinkedIn for Chemistry Students? (8m) &rarr; 4. Live Profile Demo (15m) &rarr; 5. Guided Profile Activity (10m) &rarr; 6. Academic Search &amp; Networking (10m) &rarr; 7. Career Exploration &amp; Job Search (10m) &rarr; 8. Scientific Post Creator (10m) &rarr; 9. Q&amp;A &amp; Takeaway (5m).
+        </span>
+      </div>
+      <div class="teacher-timer-box">
+        <span class="timer-label">Session Stopwatch:</span>
+        <span id="session-timer-display" class="timer-digits">00:00</span>
+        <button id="timer-toggle-btn" class="btn-timer-action">Start</button>
+        <button id="timer-reset-btn" class="btn-timer-action">Reset</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- WORKSHOP LEARNING FLOW / PROGRESS STEPPER -->
+  <div class="stepper-bar-wrapper">
+    <div class="container">
+      <div class="pipeline-stepper" id="pipeline-stepper">
+        <a href="#what-is-linkedin" class="step-node" data-target="phase-1">
+          <span class="step-num">1</span>
+          <span class="step-text">Introduction &amp; Concepts</span>
+        </a>
+        <div class="step-line"></div>
+        <a href="#demo-profile" class="step-node" data-target="phase-2">
+          <span class="step-num">2</span>
+          <span class="step-text">Facilitator Demo</span>
+        </a>
+        <div class="step-line"></div>
+        <a href="#practical-profile" class="step-node" data-target="phase-3">
+          <span class="step-num">3</span>
+          <span class="step-text">Guided Student Activity</span>
+        </a>
+        <div class="step-line"></div>
+        <a href="#assignment" class="step-node" data-target="phase-4">
+          <span class="step-num">4</span>
+          <span class="step-text">Networking &amp; Career Exploration</span>
+        </a>
+        <div class="step-line"></div>
+        <a href="#viva" class="step-node" data-target="phase-5">
+          <span class="step-num">5</span>
+          <span class="step-text">Q&amp;A &amp; Takeaway</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ====================================================================
+         SECTION 1: HERO (Phase 1: Introduction)
+         ==================================================================== -->
+    <section class="section hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge-tag">
+            <span class="badge-dot pulse"></span> WORKSHOP &bull; CHEMICAL SCIENCES
+          </div>
+          <h1 class="hero-title">
+            LinkedIn for <span class="text-gradient">Chemistry Students</span>
+          </h1>
+          <p class="hero-subtitle">Learn. Connect. Grow.</p>
+          <div class="hero-topic-banner">
+            <strong>WORKSHOP TOPIC:</strong>
+            <p>"Study of LinkedIn for Academic Communication, Professional Networking and Career Development in Chemistry"</p>
+          </div>
+          <p class="hero-desc">
+            Welcome to your interactive workshop portal. In this session, you will learn through facilitator explanation, live LinkedIn demonstration, guided activities, academic search, professional networking, career exploration, scientific post creation, and Q&amp;A. Discover how chemical science scholars leverage LinkedIn to build digital visibility and unlock career pathways.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="hero-actions">
+            <a href="#what-is-linkedin" class="btn btn-primary">📖 Start Workshop &darr;</a>
+            <a href="#practical-profile" class="btn btn-secondary">🚀 Explore Workshop Activities &rarr;</a>
+          </div>
+
+          <!-- Overall Performance Tracker -->
+          <div class="overall-progress-card">
+            <div class="overall-progress-header">
+              <span>Overall Workshop Progress:</span>
+              <strong id="global-progress-indicator">0%</strong>
+            </div>
+            <div class="progress-bar-track">
+              <div id="global-progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+            <span class="overall-progress-note">Updates automatically as you complete workshop activities, logs, and reflections.</span>
+          </div>
+        </div>
+
+        <!-- Chemistry Molecule & Visual Graphic -->
+        <div class="hero-visual" aria-hidden="true">
+          <div class="chem-network-card">
+            <div class="benzene-ring">
+              <div class="ring-node node-1"><span>C<sub>1</sub></span></div>
+              <div class="ring-node node-2"><span>R&amp;D</span></div>
+              <div class="ring-node node-3"><span>Pharma</span></div>
+              <div class="ring-node node-4"><span>QC/QA</span></div>
+              <div class="ring-node node-5"><span>Prof</span></div>
+              <div class="ring-node node-6"><span>Student</span></div>
+              <div class="ring-core">
+                <svg viewBox="0 0 100 100" class="core-flask">
+                  <path d="M45,15 L55,15 L55,42 L77,80 C81,87 76,92 68,92 L32,92 C24,92 19,87 23,80 L45,42 Z" fill="none" stroke="currentColor" stroke-width="4"/>
+                  <path d="M30,80 Q50,73 70,80" stroke="currentColor" stroke-width="4" fill="none" />
+                  <circle cx="50" cy="68" r="3.5" fill="currentColor"/>
+                  <circle cx="42" cy="74" r="2.5" fill="currentColor"/>
+                  <circle cx="58" cy="73" r="2.5" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
+            <div class="float-tag tag-1">🧪 Analytical Chemist</div>
+            <div class="float-tag tag-2">🔬 Research Fellow</div>
+            <div class="float-tag tag-3">💊 Formulation Scientist</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 2: WHAT IS LINKEDIN? (Concepts)
+         ==================================================================== -->
+    <section class="section" id="what-is-linkedin">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 7 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Explain that LinkedIn is not passive social media; it is a professional ecosystem combining your digital identity, academic communication, professional networking, and career discovery.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Project the LinkedIn homepage/feed and highlight how researchers, institutes, and chemical companies share developments.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "Have you ever searched for where alumni from our Chemistry department work after graduating?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Note the four key pillars of LinkedIn and consider how their academic interests fit.</p>
+          <p><strong>KEY TAKEAWAY:</strong> LinkedIn does not guarantee jobs automatically, but it actively helps students discover opportunities, communicate professionally, and build scientific visibility.</p>
+        </div>
+
+        <div class="section-category-badge badge-theory">🎓 WORKSHOP &bull; CONCEPTS PART 1</div>
+        <div class="section-header">
+          <h2 class="section-title">What is LinkedIn?</h2>
+          <p class="section-subtitle">A digital scientific ecosystem connecting laboratory benches with industrial innovation.</p>
+        </div>
+
+        <div class="lead-quote-box">
+          <p>
+            "LinkedIn is a professional networking platform where students, teachers, researchers, scientists, chemical companies, and institutions connect, share knowledge, publish research insights, and discover career opportunities."
+          </p>
+        </div>
+
+        <!-- 3 Fundamental Functional Cards -->
+        <div class="grid grid-3">
+          <div class="card pillar-card">
+            <div class="card-icon">🏛️</div>
+            <h3>ACADEMIC</h3>
+            <p class="card-lead">Learn and communicate with teachers, researchers, and academic communities.</p>
+            <p class="card-detail">Follow professors from institutions like CSIR, IISc, IITs, Oxford, and MIT. Read non-paywalled research briefs, discover international symposiums, and participate in academic discussions.</p>
+          </div>
+          <div class="card pillar-card">
+            <div class="card-icon">🤝</div>
+            <h3>PROFESSIONAL</h3>
+            <p class="card-lead">Connect with professionals, alumni, and industry experts.</p>
+            <p class="card-detail">Form relationships with industrial bench chemists, quality assurance officers, plant managers, and senior college alumni working across chemical manufacturing and diagnostics.</p>
+          </div>
+          <div class="card pillar-card">
+            <div class="card-icon">🚀</div>
+            <h3>CAREER</h3>
+            <p class="card-lead">Find internships, jobs, projects, and career opportunities.</p>
+            <p class="card-detail">Apply directly to trainee chemist positions, industrial apprenticeships, summer research fellowships (IASc-INSA-NASI, CSIR labs), and graduate trainee vacancies.</p>
+          </div>
+        </div>
+
+        <!-- In Simple Words Callout -->
+        <div class="callout-box">
+          <span class="callout-icon">💡</span>
+          <div>
+            <h4>In Simple Words for Chemistry Students:</h4>
+            <p>LinkedIn is like your <strong>Professional Identity + Academic Communication + Professional Networking + Career Exploration</strong> platform. It can help students discover opportunities, communicate professionally, and build visibility for their laboratory skills and scientific background.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: WHY CHEMISTRY STUDENTS SHOULD USE LINKEDIN (Concepts)
+         ==================================================================== -->
+    <section class="section bg-subtle" id="why-linkedin">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 8 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Explain that chemical industries and research labs hire candidates who actively demonstrate laboratory techniques, analytical instrumentation familiarity, and communication skills.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Show an example post from an ACS or RSC group discussing a recent green synthesis paper.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "Which Chemistry field interests you most &mdash; Analytical, Organic, Inorganic, Physical, Pharmaceutical or Research?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Identify their personal chemistry domain of interest and consider how to highlight relevant skills online.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Building a scientific network during college makes transitioning to industry, testing labs, or higher academia significantly smoother.</p>
+        </div>
+
+        <div class="section-category-badge badge-theory">🎓 WORKSHOP &bull; CONCEPTS PART 2</div>
+        <div class="section-header">
+          <h2 class="section-title">Why Chemistry Students Need LinkedIn</h2>
+          <p class="section-subtitle">Bridging classroom chemical equations with global scientific practice.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <!-- Card 1 -->
+          <div class="card interactive-card">
+            <div class="card-tag">Pillar 01</div>
+            <h3>1. Academic Communication</h3>
+            <p class="card-sub-explain">How chemistry scholars converse and share findings globally:</p>
+            <ul class="check-list">
+              <li>Follow Chemistry professors and university department chairs.</li>
+              <li>Discover recent scientific research work, pre-prints, and patents.</li>
+              <li>Learn about international seminars, webinars, and RSC/ACS workshops.</li>
+              <li>Follow universities, institutes of excellence, and CSIR laboratories.</li>
+              <li>Share academic achievements, poster presentations, and awards.</li>
+              <li>Stay updated with green chemistry, nanotechnology, and catalysis trends.</li>
+            </ul>
+            <div class="real-example">
+              <strong>Chemistry Example:</strong> A student shares a photo of their recrystallization setup and receives comments from an analytical research fellow explaining crystal morphology.
+            </div>
+            <div class="real-example" style="border-left-color: var(--primary); margin-top: 0.75rem;">
+              <strong>Discussion Question:</strong> "Which chemical society (ACS, RSC, etc.) or academic research journal would you find most helpful to follow?"
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card interactive-card">
+            <div class="card-tag">Pillar 02</div>
+            <h3>2. Professional Networking</h3>
+            <p class="card-sub-explain">Connecting beyond campus walls with industry mentors:</p>
+            <ul class="check-list">
+              <li>Connect with synthetic organic chemists and analytical method developers.</li>
+              <li>Connect with research scientists working on green synthesis.</li>
+              <li>Connect with university professors and guest lecturers.</li>
+              <li>Connect with department alumni who graduated 2–5 years ago.</li>
+              <li>Connect with laboratory professionals (testing facilities, pathology labs).</li>
+              <li>Connect with pharmaceutical, agrochemical, and specialty chemical leaders.</li>
+            </ul>
+            <div class="real-example">
+              <strong>Chemistry Example:</strong> An undergraduate messages an alumnus working at a contract testing lab to understand the difference between HPLC and GC-MS in daily testing.
+            </div>
+            <div class="real-example" style="border-left-color: var(--primary); margin-top: 0.75rem;">
+              <strong>Discussion Question:</strong> "Have you ever reached out to a senior who completed their master's or started working in a pharma firm?"
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card interactive-card">
+            <div class="card-tag">Pillar 03</div>
+            <h3>3. Career Development</h3>
+            <p class="card-sub-explain">Securing your place in industry, testing, and higher academia:</p>
+            <ul class="check-list">
+              <li>Find summer research internships and industrial training modules.</li>
+              <li>Search for entry-level Chemistry jobs (QC Chemist, Analytical Trainee).</li>
+              <li>Discover research opportunities (PhD openings, JRF/SRF fellowships).</li>
+              <li>Learn about different career paths (IPR, Patent Law, Regulatory Affairs).</li>
+              <li>Showcase practical skills, instrumentation abilities, and projects.</li>
+              <li>Build a searchable professional identity visible to STEM recruiters.</li>
+            </ul>
+            <div class="real-example">
+              <strong>Chemistry Example:</strong> A graduate who posted regularly about laboratory safety and volumetric titration methods gets shortlisted by a chemical firm recruiter.
+            </div>
+            <div class="real-example" style="border-left-color: var(--primary); margin-top: 0.75rem;">
+              <strong>Discussion Question:</strong> "What kind of role would you like to target first: Quality Control, R&amp;D, Testing, or Graduate Studies?"
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 4: BUILD YOUR CHEMISTRY PROFILE (Facilitator Demo)
+         ==================================================================== -->
+    <section class="section" id="demo-profile">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 15 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Walk students through the 9 foundational building blocks of a professional profile. Contrast a vague "Chemistry Student" headline with a keyword-rich scientific headline.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Project the demo profile below. Point out the clear separation of About, Education, Hard Chemistry Skills, and Academic Projects.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "Which Chemistry-related skill would you like a recruiter or researcher to notice first when opening your profile?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Examine the sample headline and skills cloud, and start drafting their own headline on paper or phone.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Specific keywords (e.g., UV-Vis Spectroscopy, TLC, Volumetric Analysis) make student profiles discoverable by STEM recruiters.</p>
+        </div>
+
+        <div class="section-category-badge badge-demo">👨‍🏫 FACILITATOR DEMO &bull; PROFILE BENCHMARK</div>
+        <div class="section-header">
+          <h2 class="section-title">Live Profile Demonstration</h2>
+          <p class="section-subtitle">Examine the anatomy of a professional Chemistry student profile before creating your own.</p>
+          <div class="callout-box">
+            <span class="callout-icon">🧪</span>
+            <div>
+              <h4>LIVE PROFILE DEMO &bull; 9 KEY COMPONENTS</h4>
+              <p>On LinkedIn, navigate to <strong>Me &rarr; View Profile &rarr; Edit</strong>. Demonstrate one component at a time: <strong>1. Photo &rarr; 2. Name &rarr; 3. Headline &rarr; 4. About &rarr; 5. Education &rarr; 6. Skills &rarr; 7. Projects &rarr; 8. Certifications &rarr; 9. Achievements</strong>. Emphasize why specific chemical keywords matter far more than a generic title.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 Core Components Summary Bar -->
+        <div class="profile-components-grid">
+          <div class="comp-chip">1. Profile Photo</div>
+          <div class="comp-chip">2. Full Legal Name</div>
+          <div class="comp-chip">3. Scientific Headline</div>
+          <div class="comp-chip">4. About Summary</div>
+          <div class="comp-chip">5. Education Details</div>
+          <div class="comp-chip">6. 10+ Chemistry Skills</div>
+          <div class="comp-chip">7. Academic Projects</div>
+          <div class="comp-chip">8. Certifications</div>
+          <div class="comp-chip">9. Honors &amp; Awards</div>
+        </div>
+
+        <!-- INTERACTIVE SAMPLE PROFILE CONTAINER -->
+        <div class="demo-profile-wrapper">
+          <div class="demo-profile-badge">
+            <span>LIVE PROFILE DEMO &bull; INSTRUCTIONAL EXAMPLE</span>
+          </div>
+
+          <!-- Profile Header -->
+          <div class="demo-profile-header">
+            <div class="demo-avatar-container">
+              <div class="demo-avatar">
+                <span>🧪</span>
+              </div>
+            </div>
+            <div class="demo-main-info">
+              <div class="demo-name-row">
+                <h3 class="demo-name">Alex M. Sharma</h3>
+                <span class="demo-verified-badge" title="Instructional Demo Profile">DEMO PROFILE</span>
+              </div>
+              <p class="demo-headline">
+                B.Sc. Chemistry Student | Interested in Analytical Chemistry &amp; Spectroscopy | Research Enthusiast | Laboratory Safety Advocate
+              </p>
+              <p class="demo-location">
+                📍 Mumbai, Maharashtra, India &bull; <span class="demo-connections">50+ connections (Demo Data)</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Profile Body Tabs/Sections -->
+          <div class="demo-profile-body">
+            <!-- About Section -->
+            <div class="demo-sub-section">
+              <h4>About</h4>
+              <p class="demo-text">
+                I am a Chemistry student interested in analytical chemistry, laboratory techniques, and scientific research. I am dedicated to developing my practical and professional skills through academic projects, industrial internships, and guided laboratory experiments.
+                <br><br>
+                Experienced in volumetric and gravimetric analyses, spectrophotometric calibrations, and standard organic purifications under Good Laboratory Practices (GLP). Eager to connect with researchers, educators, and chemical industry specialists.
+              </p>
+            </div>
+
+            <!-- Education Section -->
+            <div class="demo-sub-section">
+              <h4>Education</h4>
+              <div class="demo-edu-card">
+                <div class="edu-icon">🎓</div>
+                <div class="edu-info">
+                  <h5>Bachelor of Science (B.Sc.) in Chemistry</h5>
+                  <p class="edu-sub">Department of Chemical Sciences &bull; 2024 – 2027 (Expected)</p>
+                  <p class="edu-details"><strong>Relevant Modules:</strong> Analytical Chemistry, Organic Reaction Mechanisms, Coordination Chemistry, Physical Chemistry (Thermodynamics &amp; Kinetics), Instrumental Methods of Analysis.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="demo-sub-section">
+              <h4>Core Chemistry &amp; Technical Skills</h4>
+              <p class="skills-sub-lead">Categorized competencies recommended for chemistry undergraduates:</p>
+              <div class="skills-cloud">
+                <span class="skill-tag">Analytical Chemistry</span>
+                <span class="skill-tag">Organic Chemistry</span>
+                <span class="skill-tag">Inorganic Chemistry</span>
+                <span class="skill-tag">Laboratory Techniques</span>
+                <span class="skill-tag">Spectroscopy (UV-Vis)</span>
+                <span class="skill-tag">Chromatography (TLC)</span>
+                <span class="skill-tag">Data Analysis</span>
+                <span class="skill-tag">Research &amp; Literature Review</span>
+                <span class="skill-tag">Scientific Writing</span>
+                <span class="skill-tag">Communication</span>
+                <span class="skill-tag">Good Laboratory Practice (GLP)</span>
+                <span class="skill-tag">Chemical Safety &amp; SDS</span>
+              </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="demo-sub-section">
+              <h4>Academic Projects</h4>
+              <div class="project-demo-card">
+                <h5>Quantification of Dissolved Oxygen and Hardness in Municipal Water Samples</h5>
+                <p class="project-meta">Academic Project &bull; Guided by Department Faculty</p>
+                <p class="project-body">Conducted complexometric titrations using standard EDTA solutions with Eriochrome Black T indicator. Analyzed reproducibility and documented error limits using standard deviation methods.</p>
+              </div>
+            </div>
+
+            <!-- Jump to practical CTA -->
+            <div class="demo-action-footer">
+              <a href="#practical-profile" class="btn btn-primary">Start Workshop Activity 1: Build My Profile &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 5: GUIDED PROFILE ACTIVITY (Student Activity)
+         ==================================================================== -->
+    <section class="section bg-subtle" id="practical-profile">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 10 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Instruct students to open their devices and edit their actual profiles, working through each of the 9 checklist points systematically.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Keep the checklist visible with the live progress bar to motivate students as their score rises.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "Does your headline reflect your genuine interest in Chemistry, or does it just say 'Student'?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Complete each task on LinkedIn and check the corresponding box here. Browser storage preserves their inputs.</p>
+          <p><strong>KEY TAKEAWAY:</strong> A profile with a photo, custom headline, and at least 5 Chemistry skills receives significantly more views from relevant professionals.</p>
+        </div>
+
+        <div class="section-category-badge badge-practical">👨‍🎓 GUIDED WORKSHOP ACTIVITY &bull; ACTIVITY 1</div>
+        <div class="section-header">
+          <h2 class="section-title">Workshop Activity 1: Build Your Professional Chemistry Profile</h2>
+          <p class="section-subtitle">Follow the checklist to assemble an authentic, verifiable scientific profile.</p>
+        </div>
+
+        <div class="practical-card">
+          <!-- Instructions box -->
+          <div class="activity-instructions">
+            <h4>📋 Activity Instructions</h4>
+            <ol>
+              <li>Open your web browser or LinkedIn App on your smartphone or computer.</li>
+              <li>Complete each of the 9 profile components below on your personal LinkedIn account.</li>
+              <li>Check the corresponding box here. Your completion percentage updates automatically.</li>
+              <li>When you reach 100%, the completion banner will confirm your activity completion.</li>
+            </ol>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="progress-container">
+            <div class="progress-labels">
+              <span class="prog-title">Profile Completion:</span>
+              <span id="profile-progress-percent" class="prog-score">0%</span>
+            </div>
+            <div class="progress-bar-track">
+              <div id="profile-progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+            <div id="profile-complete-banner" class="alert-success hidden">
+              🎉 <strong>Workshop Activity Completed!</strong> You have satisfied all fundamental scientific profile standards.
+            </div>
+          </div>
+
+          <!-- 9 Interactive Checklist Items -->
+          <div class="checklist-grid" id="profile-checklist">
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-1">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Add a suitable profile photo:</strong> Neutral background, well-lit, professional attire or clean lab coat. No party photos, casual selfies, or cartoon avatars.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-2">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Add your full legal/academic name:</strong> Clearly spelled without informal handles, symbols, or casual nicknames.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-3">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Write a professional headline:</strong> E.g., <em>"B.Sc. Chemistry Student | Interested in Analytical Chemistry | Research Enthusiast"</em>.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-4">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Add your educational details:</strong> College/University name, degree, department, batch year, and key chemistry modules.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-5">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Write an About section:</strong> 2–3 structured paragraphs explaining your chemistry interests, laboratory techniques, and career aspirations.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-6">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Add at least 5 relevant skills:</strong> Analytical Chemistry, Organic Chemistry, Inorganic Chemistry, Laboratory Techniques, Spectroscopy, Chromatography, etc.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-7">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Add academic projects:</strong> Titration projects, green synthesis assignments, water analysis tests, or poster symposium work.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-8">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Add certificates:</strong> Laboratory safety, SDS interpretation, NPTEL/SWAYAM chemistry courses, or ChemDraw workshops.
+              </span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="profile-check" id="check-9">
+              <span class="custom-box"></span>
+              <span class="check-label">
+                <strong>Add achievements:</strong> Science day prizes, quiz competitions, departmental memberships, or volunteer roles.
+              </span>
+            </label>
+          </div>
+
+          <div class="practical-buttons">
+            <button class="btn btn-secondary" id="reset-profile-checklist">Reset Checklist</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 6: ACADEMIC SEARCH & COMMUNICATION (Facilitator Demo)
+         ==================================================================== -->
+    <section class="section" id="academic-communication">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Explain how researchers and professors organize their LinkedIn presence around research labs, publications, and university affiliations.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Run through the suggested queries ("Chemistry Professor", "Analytical Chemistry", "Spectroscopy", "Chemistry Laboratory") on the simulator.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "What institution or research lab in our country would you most like to follow?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Practice searching for chemistry professors and departments on their own devices.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Targeted keyword combinations help you bypass millions of generic profiles and find specialized research mentors.</p>
+        </div>
+
+        <div class="section-category-badge badge-demo">🔎 LIVE SEARCH &bull; FACILITATOR DEMO</div>
+        <div class="section-header">
+          <h2 class="section-title">Academic Search &amp; Communication</h2>
+          <p class="section-subtitle">How to locate Chemistry researchers, professors, university labs, and scientific societies.</p>
+          <div class="callout-box">
+            <span class="callout-icon">🖥️</span>
+            <div>
+              <h4>LIVE DEMO &bull; FACILITATOR STEPS</h4>
+              <p><strong>1.</strong> Open LinkedIn in a browser tab &rarr; <strong>2.</strong> Search Chemistry-related keywords &rarr; <strong>3.</strong> Select <strong>People</strong> &rarr; <strong>4.</strong> Review relevant profiles &rarr; <strong>5.</strong> Identify institution &rarr; <strong>6.</strong> Identify Chemistry field &rarr; <strong>7.</strong> Identify research interests.</p>
+              <p><strong>Suggested Searches:</strong> "Chemistry Professor" &bull; "Chemistry Researcher" &bull; "Analytical Chemistry" &bull; "Organic Chemistry Research" &bull; "Spectroscopy" &bull; "Chemistry Laboratory"</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEARCH DEMONSTRATION WIDGET -->
+        <div class="search-sim-container">
+          <div class="search-bar-mock">
+            <span class="search-glass-icon">🔍</span>
+            <input type="text" id="sim-search-input" value="Chemistry Professor" readonly aria-label="Simulated search query" />
+            <span class="search-indicator">Simulated Search Engine</span>
+          </div>
+
+          <!-- Presets for fast demonstration -->
+          <div class="search-preset-label"><strong>Click to test standard Chemistry searches:</strong></div>
+          <div class="search-presets">
+            <button class="filter-pill active" data-search="prof">"Chemistry Professor"</button>
+            <button class="filter-pill" data-search="researcher">"Chemistry Researcher"</button>
+            <button class="filter-pill" data-search="analytical">"Analytical Chemistry"</button>
+            <button class="filter-pill" data-search="organic">"Organic Chemistry Research"</button>
+            <button class="filter-pill" data-search="lab">"Chemistry Laboratory"</button>
+          </div>
+
+          <!-- Search Results Stream -->
+          <div class="demo-search-results" id="search-results-box">
+            <!-- Dynamically populated via JS -->
+          </div>
+
+          <div class="demo-disclaimer">
+            <em>Important Notice: LIVE DEMO &bull; DEMO PROFILES ARE FOR INSTRUCTIONAL USE ONLY. No real individuals' private personal information is displayed.</em>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 7: PROFESSIONAL NETWORKING ACTIVITY (Student Activity)
+         ==================================================================== -->
+    <section class="section bg-subtle" id="networking">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Explain the 6-step networking chain. Emphasize that networking is not asking strangers for favors; it is building a community of mentors, alumni, and peers.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Highlight the 6-step diagram from Student to Career Opportunity.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "Why is an alumnus from your own college often your best starting point for professional advice?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Use LinkedIn search on their devices, locate 3 real professionals in chemical fields of interest, and document them in the activity table.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Meaningful relationships start with common academic ground, shared interests, and mutual respect.</p>
+        </div>
+
+        <div class="section-category-badge badge-practical">👨‍🎓 GUIDED WORKSHOP ACTIVITY &bull; ACTIVITY 2</div>
+        <div class="section-header">
+          <h2 class="section-title">Professional Networking Activity</h2>
+          <p class="section-subtitle">Understanding the academic-to-industry networking progression and logging relevant contacts.</p>
+        </div>
+
+        <!-- Visual Networking Diagram -->
+        <div class="diagram-wrapper">
+          <h4 class="diagram-title">The 6-Step Scientific Networking Chain</h4>
+          <div class="network-path-container">
+            <div class="path-step">
+              <div class="step-circle">1</div>
+              <h4>Student</h4>
+              <p>Undergraduate in lab</p>
+            </div>
+            <div class="path-connector">&rarr;</div>
+            <div class="path-step">
+              <div class="step-circle">2</div>
+              <h4>Professor</h4>
+              <p>Academic mentor</p>
+            </div>
+            <div class="path-connector">&rarr;</div>
+            <div class="path-step">
+              <div class="step-circle">3</div>
+              <h4>Researcher</h4>
+              <p>Post-doc / Lab PI</p>
+            </div>
+            <div class="path-connector">&rarr;</div>
+            <div class="path-step">
+              <div class="step-circle">4</div>
+              <h4>Alumni</h4>
+              <p>Seniors in industry</p>
+            </div>
+            <div class="path-connector">&rarr;</div>
+            <div class="path-step">
+              <div class="step-circle">5</div>
+              <h4>Industry Professional</h4>
+              <p>QC / R&amp;D Manager</p>
+            </div>
+            <div class="path-connector">&rarr;</div>
+            <div class="path-step highlight-step">
+              <div class="step-circle">6</div>
+              <h4>Career Opportunity</h4>
+              <p>Internship or Job</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRACTICAL ACTIVITY: LOG 3 PROFESSIONALS -->
+        <div class="practical-card mt-2">
+          <div class="activity-instructions">
+            <h4>📋 Activity: Find 3 Chemistry Professionals Relevant to Your Interests</h4>
+            <p>Open LinkedIn on your device. Search for 3 actual professionals or research scientists whose work matches your career interests. Record their details in this workshop activity table:</p>
+          </div>
+
+          <div class="table-responsive">
+            <table class="styled-table" id="networking-table">
+              <thead>
+                <tr>
+                  <th style="width: 50px;">#</th>
+                  <th style="width: 200px;">Name</th>
+                  <th style="width: 220px;">Profession &amp; Title</th>
+                  <th style="width: 200px;">Chemistry Field</th>
+                  <th>Why is this profile relevant to you?</th>
+                  <th style="width: 100px;">Save</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><input type="text" class="table-input" id="net-name-1" placeholder="e.g., Dr. R. Natarajan" /></td>
+                  <td><input type="text" class="table-input" id="net-desig-1" placeholder="e.g., Senior Analytical Scientist" /></td>
+                  <td><input type="text" class="table-input" id="net-field-1" placeholder="e.g., HPLC / Method Validation" /></td>
+                  <td><input type="text" class="table-input" id="net-rel-1" placeholder="e.g., Works in pharmaceutical quality control" /></td>
+                  <td><button class="btn btn-sm btn-outline save-row-btn" data-row="1">Save</button></td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><input type="text" class="table-input" id="net-name-2" placeholder="e.g., Prof. Sunita Menon" /></td>
+                  <td><input type="text" class="table-input" id="net-desig-2" placeholder="e.g., Assistant Professor, Dept. of Chem" /></td>
+                  <td><input type="text" class="table-input" id="net-field-2" placeholder="e.g., Green Synthesis & Catalysis" /></td>
+                  <td><input type="text" class="table-input" id="net-rel-2" placeholder="e.g., Publishes papers in green solvent chemistry" /></td>
+                  <td><button class="btn btn-sm btn-outline save-row-btn" data-row="2">Save</button></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><input type="text" class="table-input" id="net-name-3" placeholder="e.g., Vikram Deshmukh" /></td>
+                  <td><input type="text" class="table-input" id="net-desig-3" placeholder="e.g., Junior QC Chemist, AgroChem Ltd" /></td>
+                  <td><input type="text" class="table-input" id="net-field-3" placeholder="e.g., Pesticide Residue Analysis" /></td>
+                  <td><input type="text" class="table-input" id="net-rel-3" placeholder="e.g., College alumnus; guidance on entry jobs" /></td>
+                  <td><button class="btn btn-sm btn-outline save-row-btn" data-row="3">Save</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-status-bar">
+            <span id="net-table-status">💾 Records are automatically saved in local browser storage.</span>
+            <button class="btn btn-sm btn-secondary" id="clear-net-table">Clear Table</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 8: CONNECTION REQUEST DEMO & DIGITAL PROFESSIONALISM
+         ==================================================================== -->
+    <section class="section" id="connection-request">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Teach the etiquette of outreach: be polite, introduce yourself, mention a genuine academic or professional interest, avoid spamming, never demand a job immediately, and respect the recipient's time.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Compare the Recommended message against the Avoid list side by side.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "If you were a busy research scientist, which of these invitations would you accept?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Copy the template, personalize the bracketed sections with their specific details, and save it for future networking.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Respectful, personalized communication yields high acceptance rates and establishes long-term professional goodwill.</p>
+        </div>
+
+        <div class="section-category-badge badge-demo">💬 DISCUSSION &bull; PROFESSIONAL OUTREACH</div>
+        <div class="section-header">
+          <h2 class="section-title">Writing a Professional Connection Request</h2>
+          <p class="section-subtitle">Learn the difference between respectful academic communication and bad networking habits.</p>
+          <div class="callout-box">
+            <span class="callout-icon">🤝</span>
+            <div>
+              <h4>PROFESSIONAL COMMUNICATION ACTIVITY</h4>
+              <p>Open a relevant professional's profile &rarr; click <strong>Connect</strong> (if available) &rarr; choose <strong>Add a note</strong> &rarr; personalize the message around the person's research, field, institution, or a genuine shared academic interest.</p>
+              <p><strong>Core Ethics:</strong> Do not send spam, ask immediately for a job, or demand urgent replies. Respect their schedule and use official application portals for job openings.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <!-- GOOD MESSAGE -->
+          <div class="card compare-card card-good">
+            <div class="compare-header">
+              <span class="status-indicator-good">✓</span>
+              <h4>RECOMMENDED: Polite, Personalized Message</h4>
+            </div>
+            <div class="message-preview" id="good-connection-msg">Hello Sir/Ma'am,
+
+I am a Chemistry student interested in analytical chemistry and research. I came across your profile and found your work interesting. I would be happy to connect with you and learn from your professional experience.
+
+Thank you.</div>
+            <div class="compare-footer">
+              <button class="btn btn-sm btn-primary" id="copy-good-msg-btn">📋 Copy Message</button>
+              <span class="char-count">Character count: ~280 (Fits within 300-char limit)</span>
+            </div>
+          </div>
+
+          <!-- BAD MESSAGES -->
+          <div class="card compare-card card-bad">
+            <div class="compare-header">
+              <span class="status-indicator-bad">❌</span>
+              <h4>AVOID THESE: Unprofessional Outreach</h4>
+            </div>
+            <ul class="bad-list">
+              <li>
+                <strong>❌ "Hi" / "Hello" (Blank Invite)</strong>
+                <p>Provides no context, no identification, and no shared interest.</p>
+              </li>
+              <li>
+                <strong>❌ "Give me a job"</strong>
+                <p>Unprofessional solicitation without building any mutual connection first.</p>
+              </li>
+              <li>
+                <strong>❌ "Please accept"</strong>
+                <p>Demanding urgency from busy researchers or industry executives.</p>
+              </li>
+              <li>
+                <strong>❌ "Send me internship"</strong>
+                <p>Disrespectful phrasing. Positions require applications through proper channels.</p>
+              </li>
+            </ul>
+            <div class="good-practice-note">
+              <strong>Why personalized messages work:</strong> Scientists receive multiple requests weekly. Stating that you are an undergraduate chemist interested in their discipline shows authentic scientific intent.
+            </div>
+          </div>
+        </div>
+
+        <!-- DIGITAL PROFESSIONALISM & PRIVACY CALLOUT BOX -->
+        <div class="callout-box" style="margin-top: 2rem; background: var(--bg-surface); border: 2px solid var(--border-color);">
+          <span class="callout-icon">🛡️</span>
+          <div>
+            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Digital Professionalism &amp; Privacy Guidelines</h4>
+            <p style="margin-bottom: 0.6rem;"><strong>What NOT to share publicly on your profile or in messages:</strong></p>
+            <ul style="padding-left: 1.2rem; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+              <li>Passwords, PINs, or login credentials</li>
+              <li>Phone numbers or personal home address</li>
+              <li>Government identification numbers (Aadhaar, Passport, PAN, SSN)</li>
+              <li>Confidential laboratory notebooks, patent pre-filings, or proprietary institutional data</li>
+            </ul>
+            <p style="margin-bottom: 0.4rem;"><strong>Professional Conduct Best Practices:</strong></p>
+            <ul style="padding-left: 1.2rem; font-size: 0.88rem; color: var(--text-muted);">
+              <li>Always verify job opportunities through official company websites before applying.</li>
+              <li>Do not copy or plagiarize summaries or project details from other researchers' profiles.</li>
+              <li>Maintain authentic academic credentials; never claim instrumentation skills you have not practiced.</li>
+              <li>Communicate courteously and accept that professionals may not always have bandwidth to reply immediately.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 9: CAREER DEVELOPMENT (Concepts)
+         ==================================================================== -->
+    <section class="section bg-subtle" id="career-paths">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Broaden students' horizons beyond traditional teaching or clinical paths. Discuss Quality Control, Formulation, Environmental Testing, and Patent Analysis.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Walk through the Chemistry Career Exploration cards on screen.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "Which career pathway would you like to explore after graduation?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Match their favorite laboratory experiments (e.g., titrations, synthesis, spectrophotometry) with industry sectors.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Chemistry is central to diverse industries; LinkedIn makes career paths transparent and accessible.</p>
+        </div>
+
+        <div class="section-category-badge badge-theory">💼 CAREER EXPLORATION &bull; DOMAIN OVERVIEW</div>
+        <div class="section-header">
+          <h2 class="section-title">Chemistry Career Exploration</h2>
+          <p class="section-subtitle">Explore the diverse sectors hiring Chemistry graduates today.</p>
+        </div>
+
+        <!-- Career Pathway Flow Indicator -->
+        <div class="pathway-flow-card">
+          <span class="pathway-step">Chemistry</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Research</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Pharmaceutical Industry</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Chemical Industry</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Quality Control</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Quality Assurance</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Laboratory Work</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Teaching</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step">Higher Education</span>
+          <span class="pathway-arrow">&rarr;</span>
+          <span class="pathway-step highlight-pathway">Scientific Careers</span>
+        </div>
+
+        <div class="grid grid-3 mt-2">
+          <div class="card career-card">
+            <div class="career-icon">💊</div>
+            <h4>Pharmaceutical Industry</h4>
+            <p class="career-roles">Active Pharmaceutical Ingredient (API) Chemist, Formulation Scientist</p>
+            <p class="career-desc">Synthesizing pharmaceutical compounds, monitoring dissolution, and drug stability under strict Good Manufacturing Practices (GMP).</p>
+          </div>
+
+          <div class="card career-card">
+            <div class="career-icon">🧪</div>
+            <h4>Quality Control (QC) &amp; QA</h4>
+            <p class="career-roles">QC Analyst, QA Documentation Chemist, Raw Material Tester</p>
+            <p class="career-desc">Executing batch titrations, UV-Vis verification, chromatography testing, and ensuring manufacturing batches meet pharmacopeia standards.</p>
+          </div>
+
+          <div class="card career-card">
+            <div class="career-icon">🔬</div>
+            <h4>Research &amp; Development (R&amp;D)</h4>
+            <p class="career-roles">R&amp;D Assistant, Synthetic Chemist, Polymer Specialist</p>
+            <p class="career-desc">Conducting lab-scale reactions, synthesizing new catalytic ligands, and optimizing reaction yields in material science.</p>
+          </div>
+
+          <div class="card career-card">
+            <div class="career-icon">🚰</div>
+            <h4>Laboratory &amp; Testing Services</h4>
+            <p class="career-roles">Water Quality Chemist, Soil Analyst, Food Safety Inspector</p>
+            <p class="career-desc">Testing environmental samples, determining COD/BOD levels, pesticide residues, and heavy metal concentrations.</p>
+          </div>
+
+          <div class="card career-card">
+            <div class="career-icon">🎓</div>
+            <h4>Teaching &amp; Higher Education</h4>
+            <p class="career-roles">Lecturer, Laboratory Demonstrator, PhD Fellow (CSIR-NET/GATE)</p>
+            <p class="career-desc">Instructing undergraduate laboratory sessions, mentoring student research, and pursuing doctoral studies in chemistry.</p>
+          </div>
+
+          <div class="card career-card">
+            <div class="career-icon">📜</div>
+            <h4>Scientific Careers &amp; Patent Law</h4>
+            <p class="career-roles">Patent Analyst, Chemistry Technical Writer, Scientific Editor</p>
+            <p class="career-desc">Reviewing prior art for novel chemical reactions, drafting patent specifications, and summarizing scientific breakthroughs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 10: CAREER & JOB SEARCH ACTIVITY (Student Activity)
+         ==================================================================== -->
+    <section class="section" id="job-practical">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Explain how to navigate LinkedIn Jobs and filter by Experience Level ("Internship" or "Entry Level"). Emphasize reading the Required Skills list carefully.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Show LinkedIn Jobs live on the projector. Search "Chemistry Intern" and point out Job Title, Organization, Location, Skills, and Eligibility.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "What skills do the majority of QC Chemist job postings ask for?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Find 2 real Chemistry openings on LinkedIn and log them in the input boxes below.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Job postings reveal industry expectations and guide which laboratory skills you should prioritize during college.</p>
+        </div>
+
+        <div class="section-category-badge badge-practical">👨‍🎓 GUIDED WORKSHOP ACTIVITY &bull; ACTIVITY 3</div>
+        <div class="section-header">
+          <h2 class="section-title">Workshop Activity 3: Chemistry Career &amp; Job Search</h2>
+          <p class="section-subtitle">Analyze demonstration openings and log 2 target opportunities from LinkedIn.</p>
+          <div class="callout-box">
+            <span class="callout-icon">💼</span>
+            <div>
+              <h4>LIVE LINKEDIN JOB DEMO &bull; FACILITATOR STEPS</h4>
+              <p>Navigate to <strong>LinkedIn &rarr; Jobs</strong> and search keywords such as: "Chemistry Intern" &bull; "Quality Control Chemist" &bull; "Analytical Chemist" &bull; "Research Intern" &bull; "Junior Chemist".</p>
+              <p>Guide students to identify: <strong>1. Job title &bull; 2. Organization &bull; 3. Location &bull; 4. Required skills &bull; 5. Eligibility &bull; 6. Experience &bull; 7. Application method</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Demonstration Opportunities Container -->
+        <h4 class="demo-subtitle">Demonstration Opportunity Cards (For Classroom Study)</h4>
+        <div class="grid grid-3">
+          <!-- Card 1 -->
+          <div class="card job-card">
+            <div class="job-status-pill">DEMO SAMPLE 1</div>
+            <h4>Chemistry Intern</h4>
+            <p class="job-company">Apex BioChemical Laboratories</p>
+            <div class="job-info-row"><strong>Career Area:</strong> Analytical &amp; Quality Testing</div>
+            <div class="job-info-row"><strong>Required Skills:</strong> Titration, Solution Preparation, Lab Safety, Excel</div>
+            <div class="job-info-row"><strong>Eligibility:</strong> Pursuing B.Sc. in Chemistry (2nd or 3rd year)</div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card job-card">
+            <div class="job-status-pill">DEMO SAMPLE 2</div>
+            <h4>Junior Chemist - Quality Control</h4>
+            <p class="job-company">Global Pharma Synthetics</p>
+            <div class="job-info-row"><strong>Career Area:</strong> Pharmaceutical Quality Control</div>
+            <div class="job-info-row"><strong>Required Skills:</strong> UV-Vis Spectroscopy, Volumetric Analysis, GLP</div>
+            <div class="job-info-row"><strong>Eligibility:</strong> B.Sc. Chemistry with practical laboratory training</div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card job-card">
+            <div class="job-status-pill">DEMO SAMPLE 3</div>
+            <h4>Research Intern (Synthetic Organic)</h4>
+            <p class="job-company">Institute of Molecular Sciences</p>
+            <div class="job-info-row"><strong>Career Area:</strong> Academic Chemical Research</div>
+            <div class="job-info-row"><strong>Required Skills:</strong> Organic Synthesis, TLC Monitoring, Reflux Setups</div>
+            <div class="job-info-row"><strong>Eligibility:</strong> Chemistry undergraduate with strong organic foundation</div>
+          </div>
+        </div>
+
+        <!-- Mandatory Instructional Disclaimer -->
+        <div class="demo-disclaimer-card">
+          ⚠️ <strong>IMPORTANT EDUCATIONAL NOTICE:</strong>
+          <p>The opportunity cards above are <strong>DEMO SAMPLES</strong> created for classroom study. Job listings change frequently. Students should verify current opportunities on LinkedIn or the employer's official website.</p>
+        </div>
+
+        <!-- STUDENT SEARCH ACTIVITY -->
+        <div class="practical-card mt-2">
+          <div class="activity-instructions">
+            <h4>📋 Search Activity: Find &amp; Record 2 Chemistry Internships or Jobs</h4>
+            <p>Go to LinkedIn Jobs on your device. Search for terms such as <em>"Chemistry Intern"</em>, <em>"Quality Control Chemist"</em>, or <em>"Analytical Chemist"</em>. Record 2 real positions below:</p>
+          </div>
+
+          <div class="grid grid-2">
+            <!-- Opportunity 1 -->
+            <div class="job-record-box">
+              <h5>Target Opportunity #1</h5>
+              <div class="form-group">
+                <label for="opp1-pos">Position Title:</label>
+                <input type="text" id="opp1-pos" class="form-control" placeholder="e.g., Trainee Chemist (QC)" />
+              </div>
+              <div class="form-group">
+                <label for="opp1-org">Organization / Laboratory:</label>
+                <input type="text" id="opp1-org" class="form-control" placeholder="e.g., Lupin Pharmaceuticals" />
+              </div>
+              <div class="form-group">
+                <label for="opp1-skills">Required Skills:</label>
+                <input type="text" id="opp1-skills" class="form-control" placeholder="e.g., Titration, UV-Vis, GLP knowledge" />
+              </div>
+              <div class="form-group">
+                <label for="opp1-elig">Eligibility:</label>
+                <input type="text" id="opp1-elig" class="form-control" placeholder="e.g., Final year B.Sc. Chemistry" />
+              </div>
+            </div>
+
+            <!-- Opportunity 2 -->
+            <div class="job-record-box">
+              <h5>Target Opportunity #2</h5>
+              <div class="form-group">
+                <label for="opp2-pos">Position Title:</label>
+                <input type="text" id="opp2-pos" class="form-control" placeholder="e.g., Summer Research Intern" />
+              </div>
+              <div class="form-group">
+                <label for="opp2-org">Organization / Laboratory:</label>
+                <input type="text" id="opp2-org" class="form-control" placeholder="e.g., CSIR - National Chemical Laboratory" />
+              </div>
+              <div class="form-group">
+                <label for="opp2-skills">Required Skills:</label>
+                <input type="text" id="opp2-skills" class="form-control" placeholder="e.g., Organic synthesis, TLC, Literature search" />
+              </div>
+              <div class="form-group">
+                <label for="opp2-elig">Eligibility:</label>
+                <input type="text" id="opp2-elig" class="form-control" placeholder="e.g., 2nd year undergraduate with 60%+" />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-right mt-1">
+            <button class="btn btn-primary" id="save-jobs-btn">Save Opportunities to Record</button>
+            <button class="btn btn-secondary" id="clear-jobs-btn">Clear Inputs</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 11: CHEMISTRY LINKEDIN POST CREATOR (Student Activity)
+         ==================================================================== -->
+    <section class="section bg-subtle" id="post-creator">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 10 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Teach the 3-part scientific post structure: <strong>HOOK</strong> (What did I learn?), <strong>INSIGHT</strong> (What scientific concept or skill did I understand?), and <strong>TAKEAWAY</strong> (Why is it useful for research or industry?).</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Generate a sample post live using the "Load Chemistry Sample" button.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "How does sharing a laboratory reflection demonstrate your passion for chemistry to potential mentors?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Input their own name, a recent chemistry experiment or topic, their scientific takeaway, and click Generate Post.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Consistent, insightful posting builds authentic digital credibility in the scientific community.</p>
+        </div>
+
+        <div class="section-category-badge badge-practical">👨‍🎓 GUIDED WORKSHOP ACTIVITY &bull; ACTIVITY 4</div>
+        <div class="section-header">
+          <h2 class="section-title">Chemistry LinkedIn Post Creator</h2>
+          <p class="section-subtitle">Draft a professional academic update summarizing your chemistry learning.</p>
+        </div>
+
+        <div class="grid grid-2">
+          <!-- FORM -->
+          <div class="card">
+            <h4>Generate Academic Chemistry Post</h4>
+            <form id="post-creator-form" onsubmit="return false;">
+              <div class="form-group">
+                <label for="post-name">Student Name:</label>
+                <input type="text" id="post-name" class="form-control" placeholder="e.g., Priya Sharma" required />
+              </div>
+
+              <div class="form-group">
+                <label for="post-topic">Chemistry Topic / Experiment (Hook):</label>
+                <input type="text" id="post-topic" class="form-control" placeholder="e.g., Analytical Chemistry &amp; Titrimetric Standardization" required />
+              </div>
+
+              <div class="form-group">
+                <label for="post-learned">What I Learned (Insight &amp; Takeaway):</label>
+                <textarea id="post-learned" class="form-control" rows="3" placeholder="e.g., Today I learned about the importance of analytical techniques in Chemistry. Analytical chemistry helps identify and quantify substances and has applications in pharmaceuticals, environmental science and research." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="post-hashtags">Hashtags (Comma separated or space separated):</label>
+                <input type="text" id="post-hashtags" class="form-control" value="#Chemistry #AnalyticalChemistry #ChemistryStudents #Research" />
+              </div>
+
+              <div class="button-row">
+                <button type="button" class="btn btn-primary" id="generate-post-btn">✨ Generate Post</button>
+                <button type="button" class="btn btn-outline" id="load-sample-post-btn">Load Chemistry Sample</button>
+                <button type="button" class="btn btn-secondary" id="clear-post-btn">Clear</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- PREVIEW CARD -->
+          <div class="card post-preview-card">
+            <div class="preview-top-bar">
+              <span>LIVE PREVIEW GENERATOR</span>
+              <span class="preview-pill">Ready to Copy</span>
+            </div>
+
+            <div class="post-mock-window">
+              <div class="post-mock-author">
+                <div class="post-avatar">🧪</div>
+                <div class="post-meta">
+                  <strong id="preview-author">Your Name</strong>
+                  <span id="preview-tagline">B.Sc. Chemistry Student &bull; Chemistry Workshop Session</span>
+                  <span class="post-time">Just now &bull; 🌐 Public</span>
+                </div>
+              </div>
+
+              <div class="post-mock-body" id="preview-body">
+                <p>🧪 <strong>Learning Analytical Chemistry</strong></p>
+                <p>Today I learned about the importance of analytical techniques in Chemistry. Analytical chemistry helps identify and quantify substances and has applications in pharmaceuticals, environmental science and research.</p>
+                <p>I look forward to improving my laboratory and analytical skills.</p>
+                <p class="post-tags-render">#Chemistry #AnalyticalChemistry #ChemistryStudents #Research</p>
+              </div>
+            </div>
+
+            <div class="preview-actions">
+              <button class="btn btn-primary" id="copy-post-btn">📋 Copy Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 12: WORKSHOP REFLECTION & ACTIVITY CHECKLIST
+         ==================================================================== -->
+    <section class="section" id="assignment">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Reiterate that this checklist is a self-audit of today's learning outcomes, not a high-stress test.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Display the 8 tasks and show how the progress indicator reflects individual completion.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "Which of these 8 activities did you find most eye-opening today?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Check each item as they conclude their session activities.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Completing all 8 milestones establishes a well-rounded foundation for professional networking in Chemistry.</p>
+        </div>
+
+        <div class="section-category-badge badge-eval">📝 WORKSHOP EVALUATION &bull; TASK CHECKLIST</div>
+        <div class="section-header">
+          <h2 class="section-title">Workshop Reflection &amp; Activity Checklist</h2>
+          <p class="section-subtitle">Complete these 8 workshop milestones to consolidate your learning.</p>
+        </div>
+
+        <div class="practical-card">
+          <!-- Progress Bar -->
+          <div class="progress-container">
+            <div class="progress-labels">
+              <span class="prog-title">Workshop Activity Progress:</span>
+              <span id="assignment-progress-percent" class="prog-score">0%</span>
+            </div>
+            <div class="progress-bar-track">
+              <div id="assignment-progress-fill" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- 8 Specified Workshop Tasks -->
+          <div class="checklist-grid" id="assignment-checklist">
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-1">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>1. Improve your LinkedIn profile</strong> (Photo, Headline, About, Education).</span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-2">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>2. Add at least 5 Chemistry related skills</strong> (Analytical Chemistry, Spectroscopy, TLC, etc.).</span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-3">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>3. Find 3 Chemistry professionals/researchers</strong> whose work aligns with your goals.</span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-4">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>4. Explore 2 Chemistry jobs/internships</strong> and analyze their requirements.</span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-5">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>5. Find 2 relevant organizations</strong> (e.g., ACS, RSC, CSIR, or chemical manufacturing firms).</span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-6">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>6. Draft one professional connection message</strong> using personalized, respectful language.</span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-7">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>7. Create one Chemistry related post</strong> using the Post Creator.</span>
+            </label>
+
+            <label class="checklist-item">
+              <input type="checkbox" class="assign-check" id="task-8">
+              <span class="custom-box"></span>
+              <span class="check-label"><strong>8. Write one personal learning reflection</strong> in your workshop record below.</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 13: WORKSHOP ACTIVITY & REFLECTION TABLE
+         ==================================================================== -->
+    <section class="section bg-subtle" id="observation-table-sec">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>WHAT TO EXPLAIN:</strong> Guide students to document their key takeaways and evidence in this table for workshop verification.</p>
+          <p><strong>WHAT TO SHOW ON SCREEN:</strong> Show how to enter notes into the table and change status to 'Completed ✓'.</p>
+          <p><strong>WHAT TO ASK STUDENTS:</strong> "What new concept did you discover in each of these five activity stages?"</p>
+          <p><strong>WHAT STUDENTS DO:</strong> Enter brief notes and click 'Save Workshop Table'.</p>
+          <p><strong>KEY TAKEAWAY:</strong> Structured reflection reinforces learning and provides documentation for professional development records.</p>
+        </div>
+
+        <div class="section-category-badge badge-eval">📝 WORKSHOP EVALUATION &bull; ACTIVITY &amp; REFLECTION RECORD</div>
+        <div class="section-header">
+          <h2 class="section-title">Workshop Activity &amp; Reflection Table</h2>
+          <p class="section-subtitle">Record your key learnings and evidence from each workshop activity.</p>
+        </div>
+
+        <div class="practical-card">
+          <div class="table-responsive">
+            <table class="styled-table" id="observation-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">Sr. No.</th>
+                  <th style="width: 200px;">Activity</th>
+                  <th>What I Learned</th>
+                  <th style="width: 250px;">Evidence / Notes</th>
+                  <th style="width: 150px;">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><strong>Profile Building</strong></td>
+                  <td><textarea class="table-input" id="obs-1" rows="2" placeholder="Drafted headline with keywords; added skills & education."></textarea></td>
+                  <td><input type="text" class="table-input" id="evi-1" placeholder="e.g., Profile URL or Screenshot #1" /></td>
+                  <td>
+                    <select class="table-select" id="stat-1">
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed ✓</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td><strong>Professional Search</strong></td>
+                  <td><textarea class="table-input" id="obs-2" rows="2" placeholder="Identified 3 researchers in analytical chemistry."></textarea></td>
+                  <td><input type="text" class="table-input" id="evi-2" placeholder="e.g., Recorded in Table Activity 2" /></td>
+                  <td>
+                    <select class="table-select" id="stat-2">
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed ✓</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td><strong>Networking</strong></td>
+                  <td><textarea class="table-input" id="obs-3" rows="2" placeholder="Formulated a personalized connection message."></textarea></td>
+                  <td><input type="text" class="table-input" id="evi-3" placeholder="e.g., Message draft reviewed" /></td>
+                  <td>
+                    <select class="table-select" id="stat-3">
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed ✓</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td><strong>Career Search</strong></td>
+                  <td><textarea class="table-input" id="obs-4" rows="2" placeholder="Analyzed QC chemist and summer research intern openings."></textarea></td>
+                  <td><input type="text" class="table-input" id="evi-4" placeholder="e.g., Saved in Job Workshop Activity 3" /></td>
+                  <td>
+                    <select class="table-select" id="stat-4">
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed ✓</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td><strong>Post Creation</strong></td>
+                  <td><textarea class="table-input" id="obs-5" rows="2" placeholder="Generated a post summarizing analytical lab concepts."></textarea></td>
+                  <td><input type="text" class="table-input" id="evi-5" placeholder="e.g., Post generated and copied" /></td>
+                  <td>
+                    <select class="table-select" id="stat-5">
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed ✓</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-status-bar">
+            <span>Inputs save continuously to your browser.</span>
+            <button class="btn btn-primary" id="save-obs-btn">💾 Save Workshop Table</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 14: EXPECTED LEARNING OUTCOMES
+         ==================================================================== -->
+    <section class="section" id="outcomes">
+      <div class="container">
+        <div class="section-category-badge badge-eval">🎯 CURRICULUM MAPPING &bull; ELOs</div>
+        <div class="section-header">
+          <h2 class="section-title">Expected Learning Outcomes</h2>
+          <p class="section-subtitle">Key competencies mastered after completing this workshop.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card outcome-card">
+            <div class="outcome-icon">🏛️</div>
+            <h3>ACADEMIC COMMUNICATION</h3>
+            <blockquote class="outcome-quote">
+              "Students can discover researchers, academic activities, seminars and scientific content."
+            </blockquote>
+            <p class="outcome-desc">Students can track leading chemistry faculties, understand pre-print exchanges, and locate symposia sponsored by RSC, ACS, and university departments.</p>
+          </div>
+
+          <div class="card outcome-card">
+            <div class="outcome-icon">🤝</div>
+            <h3>PROFESSIONAL NETWORKING</h3>
+            <blockquote class="outcome-quote">
+              "Students can build meaningful professional connections with Chemistry professionals and alumni."
+            </blockquote>
+            <p class="outcome-desc">Students master professional networking etiquette, formulating respectful, customized connection requests that establish credibility with laboratory directors and senior peers.</p>
+          </div>
+
+          <div class="card outcome-card">
+            <div class="outcome-icon">🚀</div>
+            <h3>CAREER DEVELOPMENT</h3>
+            <blockquote class="outcome-quote">
+              "Students can identify internships, jobs, projects and industry opportunities."
+            </blockquote>
+            <p class="outcome-desc">Students can navigate job search tools, match their instrumentation skills with chemical enterprise requirements, and position their profile for post-degree opportunities.</p>
+          </div>
+        </div>
+
+        <!-- Workshop Specific Outcomes Summary -->
+        <div class="callout-box" style="margin-top: 2rem;">
+          <span class="callout-icon">✅</span>
+          <div>
+            <h4>Summary of Workshop Takeaway Competencies:</h4>
+            <ul style="padding-left: 1.2rem; font-size: 0.92rem; color: var(--text-main); margin-top: 0.4rem;">
+              <li>Students can create a professional Chemistry profile with keyword-optimized headlines.</li>
+              <li>Students can search for Chemistry researchers, professors, and specialized laboratory institutions.</li>
+              <li>Students can communicate professionally and respectfully with industry scientists and alumni.</li>
+              <li>Students can explore Chemistry career opportunities across pharmaceutical, analytical, and R&amp;D sectors.</li>
+              <li>Students can draft a professional scientific post using the Hook-Insight-Takeaway framework.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 15: WORKSHOP Q&A (Interactive Accordion)
+         ==================================================================== -->
+    <section class="section bg-subtle" id="viva">
+      <div class="container">
+        <!-- Facilitator Guidance Block -->
+        <div class="teacher-tip">
+          <div class="teacher-tip-header">
+            <strong>👨‍🏫 Facilitator Script &amp; Demo Cue (Estimated Time: 5 mins)</strong>
+          </div>
+          <p><strong>FACILITATOR DISCUSSION QUESTIONS:</strong> Discuss these questions interactively with students to review key workshop takeaways. Click any question to reveal the model answer on screen.</p>
+        </div>
+
+        <div class="section-category-badge badge-eval">💬 INTERACTIVE DISCUSSION &bull; WORKSHOP Q&amp;A</div>
+        <div class="section-header">
+          <h2 class="section-title">Workshop Q&amp;A</h2>
+          <p class="section-subtitle">Discuss these questions to check your understanding.</p>
+        </div>
+
+        <div class="accordion" id="viva-accordion">
+          <!-- Question 1 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>1. What is LinkedIn?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>LinkedIn is a professional networking platform where students, teachers, researchers, scientists, companies and other professionals can connect, communicate, share knowledge and discover career opportunities.</p>
+            </div>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>2. Why is LinkedIn useful for Chemistry students?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>It provides Chemistry students with direct access to researchers, chemical societies, pharmaceutical and industrial employers, internships, academic discussions, and a platform to showcase their laboratory skills.</p>
+            </div>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>3. What is academic communication?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Academic communication refers to the sharing, discussing, and publishing of scientific research, conference notifications, experimental techniques, and educational knowledge among scholars, professors, and institutions.</p>
+            </div>
+          </div>
+
+          <!-- Question 4 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>4. What is professional networking?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Professional networking is the deliberate process of establishing mutually beneficial, respectful relationships with teachers, alumni, scientists, and industry practitioners to exchange expertise and discover career avenues.</p>
+            </div>
+          </div>
+
+          <!-- Question 5 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>5. How can LinkedIn help Chemistry students find internships?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Students can use targeted keyword searches (e.g., "Chemistry Intern", "QC Trainee"), follow research institutes, connect with alumni working in chemical industries, and apply directly via the LinkedIn Jobs board.</p>
+            </div>
+          </div>
+
+          <!-- Question 6 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>6. What information should be included in a professional profile?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>A professional headshot photo, clear scientific headline, structured 'About' summary, college education details, hard Chemistry skills, academic projects, safety certifications, and honors/awards.</p>
+            </div>
+          </div>
+
+          <!-- Question 7 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>7. Why is a professional headline important?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>The headline is the first text visible in search algorithms. Adding specific keywords (e.g., "Analytical Chemistry", "Spectroscopy") tells researchers and recruiters your exact scientific focus beyond just being a "student".</p>
+            </div>
+          </div>
+
+          <!-- Question 8 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>8. What Chemistry skills can be added to LinkedIn?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Analytical Chemistry, Organic Synthesis, Inorganic Titration, UV-Vis Spectroscopy, Chromatography (TLC/HPLC), Good Laboratory Practices (GLP), Chemical Safety &amp; SDS, Data Analysis, and Scientific Writing.</p>
+            </div>
+          </div>
+
+          <!-- Question 9 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>9. Why should connection requests be personalized?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>Personalized messages explain who you are, how you discovered the recipient's work, and why you wish to connect. This shows respect, distinguishes your invitation from spam, and significantly boosts acceptance.</p>
+            </div>
+          </div>
+
+          <!-- Question 10 -->
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false">
+              <span>10. How can LinkedIn help in career development?</span>
+              <span class="acc-chevron">+</span>
+            </button>
+            <div class="accordion-content">
+              <p>It exposes students to diverse career pathways (QC, R&amp;D, Pharma, Patents, Environmental Testing), reveals necessary industry credentials, builds a searchable professional brand, and connects them with active hiring managers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 16: WORKSHOP TAKEAWAY & CERTIFICATION
+         ==================================================================== -->
+    <section class="section" id="result">
+      <div class="container">
+        <div class="section-category-badge badge-eval">🏁 WORKSHOP COMPLETION &bull; PARTICIPATION RECORD</div>
+        <div class="section-header">
+          <h2 class="section-title">Workshop Takeaway &amp; Completion Record</h2>
+          <p class="section-subtitle">Workshop completion and professional learning record.</p>
+        </div>
+
+        <div class="result-card">
+          <!-- Official Verification Seal -->
+          <div class="result-seal" aria-hidden="true">
+            <svg viewBox="0 0 100 100" class="seal-svg">
+              <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="4,2"/>
+              <polygon points="50,15 61,38 85,38 66,54 73,78 50,63 27,78 34,54 15,38 39,38" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-width="2"/>
+              <text x="50" y="55" font-size="10" text-anchor="middle" font-weight="bold" fill="currentColor">VERIFIED</text>
+            </svg>
+          </div>
+
+          <div class="result-header">
+            <h3>DEPARTMENT OF CHEMICAL SCIENCES</h3>
+            <p class="result-course">Undergraduate Workshop Record &bull; Professional Development Unit</p>
+          </div>
+
+          <div class="result-statement">
+            <p><strong>WORKSHOP TITLE:</strong></p>
+            <p class="title-bold">"Study of LinkedIn for Academic Communication, Professional Networking and Career Development in Chemistry"</p>
+            
+            <p class="mt-1"><strong>AIM:</strong> To study the structure, networking methodologies, and career development applications of LinkedIn for undergraduate chemical science scholars.</p>
+            
+            <div class="conclusion-box">
+              <strong>KEY LEARNING FROM TODAY'S WORKSHOP:</strong>
+              <p class="conclusion-text">
+                "LinkedIn can help Chemistry students build a professional identity, communicate academically, develop meaningful professional connections and explore career opportunities."
+              </p>
+            </div>
+            
+            <div class="practical-completed-stamp">
+              Workshop Completed ✓
+            </div>
+          </div>
+
+          <!-- Summary Metrics -->
+          <div class="result-checklist-summary">
+            <div class="summary-metric">
+              <span class="metric-val" id="metric-profile-val">0%</span>
+              <span class="metric-lbl">Profile Readiness</span>
+            </div>
+            <div class="summary-metric">
+              <span class="metric-val" id="metric-tasks-val">0/8</span>
+              <span class="metric-lbl">Tasks Completed</span>
+            </div>
+            <div class="summary-metric">
+              <span class="metric-val" id="metric-status-val">IN PROGRESS</span>
+              <span class="metric-lbl">Workshop Status</span>
+            </div>
+          </div>
+
+          <!-- Formal Signatures Block -->
+          <div class="result-signatures">
+            <div class="sig-box">
+              <div class="sig-line"></div>
+              <span>Student Signature &amp; Date</span>
+            </div>
+            <div class="sig-box">
+              <div class="sig-line"></div>
+              <span>Facilitator / Teacher In-Charge</span>
+            </div>
+          </div>
+
+          <!-- Workshop Record Actions -->
+          <div class="result-actions">
+            <button class="btn btn-primary" onclick="window.print()">🖨️ Print Workshop Record (PDF / Hard Copy)</button>
+            <button class="btn btn-outline" id="reset-all-data-btn">↺ Reset Workshop Progress</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <strong>Chem<span class="highlight">Connect</span></strong> &bull; Department of Chemistry Workshop Portal
+      </div>
+      <p>An interactive, projector-ready educational tool for undergraduate Chemistry students and professional development. All simulated profiles and opportunities are for instructional use.</p>
+      <p class="copyright">&copy; Academic Year 2026–2027 &bull; Chemical Sciences Workshop Curriculum</p>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button id="back-to-top" class="back-to-top" title="Back to Top" aria-label="Scroll back to top of page">&uarr;</button>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
+</body>
+</html>
